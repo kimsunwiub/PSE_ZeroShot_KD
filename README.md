@@ -8,6 +8,13 @@ Paper: Test-Time Adaptation Toward Personalized Speech Enhancement:Zero-Shot Lea
 
 More updates/clean ups to be done, pleqse contact authors for immediate questions. 
 
+## Datasets used in this repository
+* LibriSpeech
+* MUSA
+
+
+ 
+
 ### Repository structure
 
 #### pretraining_generalist.py
