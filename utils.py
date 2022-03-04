@@ -16,23 +16,19 @@ def get_stats(X):
     return print("Mean: {:.2f}, Std: {:.2f}, Min: {:.2f}, Max: {:.2f}".format(
         X.mean(), X.std(), X.min(), X.max()))
 
-def save_model(model, output_directory, rundata, is_last=False, model2=None):
+def save_model(model, output_directory, rundata, is_last=False):
     curr_epoch = rundata['epoch']
     if is_last:
         suffix = curr_epoch
     else:
         suffix = 'best'
     
-    model_save_dir = "{}/Dmodel_{}.pt".format(output_directory, suffix)
+    model_save_dir = "{}/model_{}.pt".format(output_directory, suffix)
     data_save_dir = "{}/rundata_{}.pt".format(output_directory, suffix)
     torch.save(model.state_dict(), model_save_dir)
-    logging.info("D model saved to {}".format(model_save_dir))
+    logging.info("model saved to {}".format(model_save_dir))
     with open(data_save_dir, 'wb') as handle:
         pickle.dump(rundata, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    if model2:
-        model_save_dir = "{}/model2_{}.pt".format(output_directory, suffix)
-        torch.save(model2.state_dict(), model_save_dir)
-        logging.info("model2 saved to {}".format(model_save_dir))
 
 def load_model(model, load_model):
     state_dict = torch.load(load_model, map_location=torch.device("cpu"))#map_location=lambda storage, loc: storage) 
@@ -98,4 +94,4 @@ def setup_expr(args):
         )
     return output_directory
 
-https://github.com/kimsunwiub/PSE_ZeroShot_KD.git
+# https://github.com/kimsunwiub/PSE_ZeroShot_KD.git

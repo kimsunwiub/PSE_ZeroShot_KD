@@ -59,7 +59,7 @@ def init_pers_set(args):
     all_seed(args.seed)
     session_id = args.seed
 
-    te_spkr_dir = '/home/kimsunw/data/LibriSpeech/test-clean'
+    te_spkr_dir = '{}/LibriSpeech/test-clean'.format(args.data_dir)
     spkr_ids = [x for x in os.listdir(te_spkr_dir) if 'txt' not in x]
     session_spkr = spkr_ids[session_id]
     te_spkr_id = "{}/{}".format(te_spkr_dir, session_spkr)
@@ -71,7 +71,7 @@ def init_pers_set(args):
     spkr_utts = np.array(spkr_utts)
 
     # Select noise for the session
-    noise_dir = '/home/kimsunw/data/formatted_wham/'
+    noise_dir = '{}/formatted_wham/'.format(args.data_dir)
     all_noise_batch_list = [x for x in os.listdir(noise_dir) if '.sh' not in x]
     noise_cls = all_noise_batch_list[session_id]
     noise_sigs = os.listdir("{}/{}".format(noise_dir, noise_cls))
@@ -174,7 +174,7 @@ def mixup(args, tot_s, tot_n):
 
 def mix_signals_batch(s, n, snr_ranges):
     """
-    Checked.
+    Helper function to mix noise 'n' and speech 's' to given SNR ranges. 
     """
     n = scale_amplitude(n, snr_ranges)
     x = s + n
@@ -185,7 +185,7 @@ def mix_signals_batch(s, n, snr_ranges):
 
 def prep_sig_ml(s,sr):
     """
-    Checked. 
+    Truncating length of 's' to that of 'sr'
     """
     ml=np.minimum(s.shape[1], sr.shape[1])
     s=s[:,:ml]
@@ -211,7 +211,7 @@ def scale_amplitude(x, snr_ranges):
 
 def apply_scale_invariance(s, x):
     """
-    Checked. 
+    Helper function to apply scale invariance prior to computing SNR. 
     """
     alpha = s.mm(x.T).diag()
     alpha /= ((s ** 2).sum(dim=1) + eps)

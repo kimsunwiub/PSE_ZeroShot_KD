@@ -23,9 +23,8 @@ def parse_arguments():
     parser.add_argument("-r", "--G_num_layers", type=int, default=-1)
     parser.add_argument("-g", "--G_hidden_size", type=int, default=-1)
     
-    parser.add_argument("--data_dir", type=str, default="/home/kimsunw/data/")
-    parser.add_argument("--save_dir", type=str, 
-        default="/home/kimsunw/workspace/pse/pretraining/Gs/")
+    parser.add_argument("--data_dir", type=str, default="data/")
+    parser.add_argument("--save_dir", type=str, default="pretrained_models/")
     
     parser.add_argument("--load_SEmodel", type=str, default=None)
     parser.add_argument("--load_SErundata", type=str, default=None)
@@ -46,7 +45,7 @@ def parse_arguments():
     parser.add_argument("--fft_size", type=int, default=1024)
     parser.add_argument("--hop_size", type=int, default=256)
                 
-    parser.add_argument('--is_ctn', action='store_true')    
+    parser.add_argument('--ctn_tea', action='store_true')    
     parser.add_argument('--is_save', action='store_true')
     
     return parser.parse_args()
@@ -66,8 +65,9 @@ all_seed(args.seed)
 t_stamp = '{0:%m%d%H%M}'.format(datetime.now())
 output_directory = "{}/expr{}_G{}x{}_lr{:.0e}_bs{}_ctn{}_nfrms{}_GPU{}".format(
     args.save_dir, t_stamp, args.G_num_layers, args.G_hidden_size, 
-    args.learning_rate, args.batch_size, args.is_ctn,
+    args.learning_rate, args.batch_size, args.ctn_tea,
     args.n_frames, args.device)
+print("Dir: ", output_directory)
 
 handlers = None
 if args.is_save:
@@ -94,7 +94,7 @@ va_speech_ds = torchaudio.datasets.LIBRISPEECH(
 tr_noise_ds = musan_train_prep_dataset(
     '{}/musan/noise/free-sound'.format(args.data_dir))
 va_noise_ds = musan_train_prep_dataset(
-    '{}/musan/noise/free-sound-va'.format(args.data_dir))
+    '{}/musan/noise/free-sound'.format(args.data_dir))
 
 kwargs = {'num_workers': 0, 'pin_memory': True, 'drop_last': True}
 tr_speech_dataloader = data.DataLoader(dataset=tr_speech_ds,
@@ -120,7 +120,7 @@ va_noise_dataloader = data.DataLoader(dataset=va_noise_ds,
     **kwargs)
 
 # Init generator
-if args.is_ctn:
+if args.ctn_tea:
     from asteroid.models import ConvTasNet
     G_model = ConvTasNet(n_src=1).cuda()
 else:
@@ -154,7 +154,7 @@ logging.info("Started training SE")
 for epoch in range(load_epoch, args.tot_epoch+load_epoch):
     G_model.train()
     tr_toc = time()
-    if args.is_ctn:
+    if args.ctn_tea:
         tr_loss_ep = run_se_ctn(
             args, G_model, tr_speech_dataloader, tr_noise_dataloader, 
             is_train=True, optimizer=G_optimizer)
@@ -172,7 +172,7 @@ for epoch in range(load_epoch, args.tot_epoch+load_epoch):
         G_model.eval()
         va_toc = time()
         with torch.no_grad():
-            if args.is_ctn:
+            if args.ctn_tea:
                 va_loss_ep = run_se_ctn(
                     args, G_model, va_speech_dataloader, va_noise_dataloader, 
                     is_train=False)
