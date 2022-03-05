@@ -2,7 +2,7 @@
 
 This repository provides a script for training and personalizing speech enhancement (PSE) models to test-time environments.  The original PSE framework was introduced in [1]. 
 
-More updates/clean ups to be done, pleqse contact authors for immediate questions. 
+More updates/clean ups to be done, please contact authors for immediate questions. 
 
 ## Datasets used in this repository
 * LibriSpeech (https://www.openslr.org/12)
