@@ -7,9 +7,10 @@ More updates/clean ups to be done, pleqse contact authors for immediate question
 ## Datasets used in this repository
 * LibriSpeech (https://www.openslr.org/12)
 * MUSAN (https://www.openslr.org/17/)
-* WHAM! (https://wham.whisper.ai/)
+* WHAM! (https://drive.google.com/file/d/1PEDhL0gKFfe70cwo6fm33x8XGVMxgfS3/view?usp=sharing) (Link to original work: https://wham.whisper.ai/)
 
 Download the datasets into a location (e.g., data/). LibriSpeech can be downloaded by using torchaudio's datasets, which is done in line 88 of pretrain_generalist.py script, so this step can be skipped. MUSAN can be downloaded in the provided link above. WHAM! corpus can also be downloaded through the provided link, but the files for this project were organized manually with respect to each recorded location according to the provided metadata. Please download the formatted WHAM! corpus through 
+the google drive link. 
 
 ## Usage
 Pre-training speech enhanacement models can be done by running the ```pretraining_generalist.py``` script. For example,
@@ -42,7 +43,7 @@ Noise Class:  Tomatina
 - Since the test-time environment is defined by the noise recording location, download the formatted WHAM! corpus as mentioned in the earlier section. 
 - For both pretraining and personalization, there is an additional option to use a ConvTasNet [3] model which can be set by adding the ```--ctn_tea``` option. 
 - To skip the pretraining step, please find pretrained models available at https://drive.google.com/file/d/1QmuPuK5xoiNPKBx7avqdLDdXpizTDit5/view?usp=sharing
-- To replicate the experiment in [1], use seed values from 0-40 and SNR ranges [-5,0,5,10]. 
+- To replicate the experiment in [1], use seed values from [0,40] and SNR ranges [-5,0,5,10]. 
 
 
 ### References
