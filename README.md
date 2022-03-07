@@ -28,7 +28,7 @@ INFO:root:Epoch 199 Training. Student: 6.74 | Orig: 3.52 | Teacher: 7.14 | Loss:
 INFO:root:Epoch 199 Validation. Student: 7.08 | Orig: 4.58 | Teacher: 7.89 | Loss: -11.50
 INFO:root:Epoch 199 Testing. Student: 7.34 | Orig: 4.51 | Teacher: 8.61 | Loss: -11.88
 ```
-showing the performance of the personalized student, baseline pretrained student (unupdated), and teacher model in terms of SI-SDRi. 
+showing the performance of the personalized student, baseline pretrained student (not updated), and teacher model in terms of SI-SDRi. 
 
 ### Notes
 - For both pretraining and personalization, make sure the datasets (LibriSpeech, MUSAN, and formatted WHAM!) are placed in the data/ directory. 
