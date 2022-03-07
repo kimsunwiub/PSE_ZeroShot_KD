@@ -7,7 +7,7 @@ This repository provides a script for training and personalizing speech enhancem
 * MUSAN (https://www.openslr.org/17/)
 * WHAM! (https://drive.google.com/file/d/1PEDhL0gKFfe70cwo6fm33x8XGVMxgfS3/view?usp=sharing) (Link to original work: https://wham.whisper.ai/)
 
-Download the datasets into a location (e.g., data/). LibriSpeech can be downloaded by using torchaudio's datasets, which is done in line 88 of pretrain_generalist.py script, so this step can be skipped. MUSAN can be downloaded in the provided link above. WHAM! corpus can also be downloaded in the provided original link, but the files for this project were organized manually with respect to each recorded location according to the provided metadata. Please download the formatted WHAM! corpus through the google drive link. 
+Download the datasets into a location (e.g., data/). LibriSpeech and MUSAN can be downloaded in the provided link above. WHAM! corpus can also be downloaded in the provided original link, but the files for this project were organized manually with respect to each recorded location according to the provided metadata. Please download the formatted WHAM! corpus through the google drive link. 
 
 ## Usage
 Pre-training speech enhanacement models can be done by running the ```pretraining_generalist.py``` script. For example,
